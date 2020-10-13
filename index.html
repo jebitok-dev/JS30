@@ -57,13 +57,27 @@
     <audio data-key="76" src="sounds/tint.wav"></audio>
 
     <script>
-      window.addEventListener("keydown", function (e) {
-        // console, log(e.keyCode);
-        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        if (!audio) return;
+      window.addEventListener("keydown");
+      function playSound() {
+        const audio = document.querySelector(`audio[data-key"${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key"${e.keyCode}"]`);
+        if (!audio) return; //stops function from running all together
         audio.currentTime = 0;
         audio.play();
-      });
+        key.classList.add("playing");
+        // key.classList.remove("playing");
+        // key.classList.toggle("playing");
+      }
+
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") returm;
+        this.classList.remove("playing");
+      }
+
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
     </script>
   </body>
 </html>
